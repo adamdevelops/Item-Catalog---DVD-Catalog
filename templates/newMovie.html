@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>New Movie to add to the Catalog:</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-1 padding-top">
+			<form action="{{ url_for('createNewMovies')}}" method = "post">
+				<div class="form-group">
+					<label for="name">Name:</label>
+					<input type ="text" maxlength="50" class="form-control" name="name" placeholder="Name of the movie">
+
+					<label for="category">Movie Poster Link:</label>
+					<textarea class="form-control" maxlength="250" rows="1" name="movie_poster" placeholder="Link of the movie poster (Optional)"></textarea>
+
+					<label for="category">Category:</label>
+					<textarea class="form-control" maxlength="250" rows="3" name="address" placeholder="Category of the movie"></textarea>
+
+					<label for="description">Description:</label>
+					<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the movie (Optional)"></textarea>
+
+
+					<button type="submit" class="btn btn-default" id="submit" type="submit">
+					<span class="glyphicons glyphicons-magic" aria-hidden="true"></span>Create</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
