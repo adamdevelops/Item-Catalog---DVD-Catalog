@@ -33,14 +33,16 @@ def catalogDashboard():
 @app.route('/movies/create', methods=['GET', 'POST'])
 def createNewMovies():
     if request.method == 'POST':
-        newMovie = Movie(name=request.form['name'],
-                        movie_poster=request.form['movie_poster'],
-                        description=request.form['description'],
-                        category=request.form['category'])
+        name = request.form['name']
+        movie_poster = request.form['movie_poster'],
+        description = request.form['description'],
+        category = request.form['category']
+        newMovie = Movie(name = name, movie_poster = movie_poster, description = description, category = category)
+        print newMovie
         session.add(newMovie)
         flash('New Movie %s Successfully Created' % newMovie.name)
         session.commit()
-        return redirect(url_for('catalogueDashboard'))
+        return redirect(url_for('catalogDashboard'))
     else:
         return render_template('newMovie.html')
 

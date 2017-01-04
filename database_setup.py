@@ -1,6 +1,7 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Text
+from sqlalchemy import types
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -12,7 +13,7 @@ class Category(Base):
     __tablename__ = 'dvdcategory'
 
     id = Column(Integer, primary_key=True)
-    category = Column(String(250), nullable=False)
+    category = Column(String(80), nullable=False)
 
     @property
     def serialize(self):
@@ -29,9 +30,9 @@ class Movie(Base):
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
     description = Column(String(250))
-    movie_poster = Column(String(250))
-    category_id = Column(Integer, ForeignKey('dvdcategory.id'))
-    category = Column(String(250), ForeignKey('dvdcategory.category'))
+    movie_poster = Column(String(500))
+    category = Column(String(80), ForeignKey('dvdcategory.category'))
+    dvdcategory = relationship(Category)
 
     @property
     def serialize(self):
