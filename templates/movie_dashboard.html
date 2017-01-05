@@ -12,28 +12,46 @@
 	<div class="row banner main">
 		<div class="col-md-1"></div>
 		<div class="col-md-11 padding-none">
-			<h1>places</h1>
+			<h1>{{movie.name}}</h1>
 		</div>
 	</div>
 
-
+<div>
 	<div class="row padding-top padding-bottom">
-		<div class="col-md-1"></div>
-		<div class="col-md-10 padding-none">
-			<a href="{{url_for('newplace')}}">
+		<div class="col-md-4 padding-none">
+			<a href="{{url_for('createNewMovies')}}">
 				<button class="btn btn-default" id="new-place">
-					<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Add a new Movie
+					<span class="glyphicons glyphicons-film" aria-hidden="true"></span>Add a new Movie
 				</button>
 			</a>
 		</div>
-		<div class="col-md-1"></div>
-	</div>
+
+		<div class="col-md-4 padding-none">
+				<a href="{{url_for('editMovies', category = movie.category, movie_id = movie.id)}}">
+					<button class="btn btn-default" id="new-place">
+						<span class="glyphicons glyphicons-film" aria-hidden="true"></span>Edit this Movie
+					</button>
+				</a>
+			</div>
+
+				<div class="col-md-4 padding-none">
+				<a href="{{url_for('deleteMovies', category = movie.category, movie_id = movie.id)}}">
+					<button class="btn btn-default" id="new-place">
+						<span class="glyphicons glyphicons-film" aria-hidden="true"></span>Delete this Movie
+					</button>
+				</a>
+				</div>
+		</div>
+</div>
 
 	<!-- All the info for the movie -->
-	movie.name
-	movie.movie_poster
-	movie.category
-	movie.description
+	<div class="movie">
+		<div class="movie-item">Name:</div>
+			{{movie.name}}<br>
+		<img src="{{movie.movie_poster}}" height="420" width="420"><br>
+		<div class="movie-item">Category: </div>{{movie.category}}<br>
+		<div class="movie-item">Description:</div>{{movie.description}}<br>
+	</div>
 
 	<!--  -->
 {% endblock %}

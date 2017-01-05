@@ -19,7 +19,7 @@ class Category(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'name': self.name,
+            'category': self.category,
             'id': self.id,
         }
 
@@ -29,8 +29,8 @@ class Movie(Base):
 
     name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
-    description = Column(String(250))
-    movie_poster = Column(String(500))
+    description = Column(Text)
+    movie_poster = Column(Text)
     category = Column(String(80), ForeignKey('dvdcategory.category'))
     dvdcategory = relationship(Category)
 

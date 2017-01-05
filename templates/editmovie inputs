@@ -1,0 +1,11 @@
+<label for="name">Name:</label>
+<input class="form-control" maxlength="250" rows="1" name="name" value="{{movie.name}}">
+
+<label for="category">Movie Poster Link:</label>
+<textarea class="form-control" maxlength="250" rows="1" name="category">{{movie.movie_poster}}</textarea>
+
+<label for="category">Category:</label>
+<input class="form-control" maxlength="250" rows="3" name="category" value="{{movie.category}}">
+
+<label for="description">Description:</label>
+<textarea class="form-control" maxlength="250" rows="3" name="description">{{movie.description}}</textarea>

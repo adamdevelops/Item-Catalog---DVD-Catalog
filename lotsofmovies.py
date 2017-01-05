@@ -20,15 +20,9 @@ session = DBSession()
 
 
 # Menu for UrbanBurger
-category1 = Category(category="Action")
+category1 = Category(category="Drama")
 
 session.add(category1)
-session.commit()
-
-movie1 = Movie(name="Jason Bourne", description="Bourne is back.",
-                     movie_poster="http://t3.gstatic.com/images?q=tbn:ANd9GcQ27a64TqUZLOU1QbJiBPhu4mBZMW50wFzR62ob5W9o9Mgx7blK", category="Action")
-
-session.add(movie1)
 session.commit()
 
 

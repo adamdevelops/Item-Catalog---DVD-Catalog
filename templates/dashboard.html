@@ -27,29 +27,50 @@
 	  {% endwith %}
 	</div>
 
-	<!--New Movie Button-->
+	<!--Category Button-->
 	<div class="row padding-top padding-bottom">
-		<div class="col-md-1"></div>
-		<div class="col-md-10 padding-none">
-			<a href="{{url_for('createNewMovies')}}">
+		<div class="col-md-1 padding-none">
+			<a href="{{ url_for('showCategoryMovies', category = "Action") }}">
 				<button class="btn btn-default" id="new-place">
-					<span class="glyphicons glyphicons-film" aria-hidden="true"></span>  Add a new Movie
+					<span class="glyphicons glyphicons-film" aria-hidden="true"></span>  Category
 				</button>
 			</a>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
 
+	<!--New Movie Button-->
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1 padding-none">
+			<a href="{{ url_for('createNewMovies') }}">
+				<button class="btn btn-default" id="new-place">
+					<span class="glyphicons glyphicons-film" aria-hidden="true"></span>  Add a new Movie
+				</button>
+			</a>
+		</div>
+	</div>
+
+<div>
+	<div class="col-md-2">
+		Category
+		<ul>
+			{% for category in categories %}
+				<a href="{{ url_for('showCategoryMovies', category = category.category)}}"><li>{{category.category}}</li></a>
+			{% endfor %}
+		</ul>
+	</div>
+
+
+
 	<!--List of Recent Movies added to the catalog-->
 	{% for movie in movies %}
-		<a href = "{{url_for('catalogueDashboard')}}"> <!-- edit later -->
-			<div class="row">
-				<div class="col-md-1"></div>
+		<a href = "{{ url_for('showMoviePage', category = movie.category, movie_id = movie.id)}}"> <!-- edit later -->
+
 					<div class="col-md-10 place-list">
 						<h3>{{movie.name}}</h3>
 					</div>
-				<div class="col-md-1"></div>
-			</div>
 		</a>
+
+</div>
 	{% endfor %}
 {% endblock %}
