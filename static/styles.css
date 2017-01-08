@@ -15,6 +15,7 @@ h2 {
 	font-size: 24px;
 	color: #42C3C9;
 	line-height: 29px;
+	text-decoration: underline;
 }
 
 h3 {
@@ -41,6 +42,18 @@ h3 {
  	color: #0093B9;
  	line-height: 17px;
  }
+
+ section {
+   float: right;
+   margin: 0 1.5%;
+	 margin-right: 50%;
+  }
+ aside {
+   float: right;
+   margin: 0 1.5%;
+   width: 30%;
+ }
+
 .padding-top {
 	padding-top: 30px;
 }
@@ -56,19 +69,19 @@ h3 {
 .btn {
 	padding: 20px;
 	margin: 0;
-	border-color: #9FB80A;
+	border-color: #42C3C9;
 	border-width: 2px;
-	color: #9FB80A;;
+	color: #42C3C9;;
 }
 .btn:hover {
-	border-color: #9FB80A;
+	border-color: #42C3C9;
 }
 .btn.delete {
-	border-color: #aaaaaa;
+	border-color: #42C3C9;
 	color: #aaaaaa;
 }
 .btn.delete:hover {
-	border-color: #aaaaaa;
+	border-color: #42C3C9;
 	color: red;
 }
 .glyphicon {
@@ -116,14 +129,36 @@ h3 {
 .banner h1 {
 	margin: 45px 0;
 }
- .restaurant-list {
+ .movies-list {
  	background-color: #F0F0F0;
  	padding: 20px;
-u }
- .restaurant-list:hover {
- 	background-color: #e1e17f;
+	border-style: solid;
+  border-color: #D3D3D3;
+ }
+ .movies-list:hover {
+ 	background-color: #0ab2b8;
  	padding: 20px;
 }
+
+.categories{
+	margin-right: 80%;
+}
+
+.dashboard{
+	margin-left: 20%;
+	position: absolute;
+}
+
+#switch {
+  height:50px;
+  width:50px;
+  background: #F00; /* Just so we can see it */
+
+  top: 150px;
+  left: 50%;  /* Put the left edge on the horizontal center */
+  margin-left: 148px; /* Move it 148px to the right of the horizontal center, placing it over the lightswitch */
+ }
+
 .menu-item {
 	background: #F0F0F0;
 	padding: 20px;

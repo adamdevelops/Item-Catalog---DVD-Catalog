@@ -1,11 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-	<div class="row top-menu">
-		<div class="col-md-10"></div>
-		<div class="col-md-2 text-right">
-					</div>
-	</div>
+
 	<div class="row divider blue">
 		<div class="col-md-12"></div>
 	</div>
@@ -20,7 +16,7 @@
 	<div class="row padding-top padding-bottom">
 		<div class="col-md-4 padding-none">
 			<a href="{{url_for('createNewMovies')}}">
-				<button class="btn btn-default" id="new-place">
+				<button class="btn btn-default">
 					<span class="glyphicons glyphicons-film" aria-hidden="true"></span>Add a new Movie
 				</button>
 			</a>
@@ -28,7 +24,7 @@
 
 		<div class="col-md-4 padding-none">
 				<a href="{{url_for('editMovies', category = movie.category, movie_id = movie.id)}}">
-					<button class="btn btn-default" id="new-place">
+					<button class="btn btn-default">
 						<span class="glyphicons glyphicons-film" aria-hidden="true"></span>Edit this Movie
 					</button>
 				</a>
@@ -36,7 +32,7 @@
 
 				<div class="col-md-4 padding-none">
 				<a href="{{url_for('deleteMovies', category = movie.category, movie_id = movie.id)}}">
-					<button class="btn btn-default" id="new-place">
+					<button class="btn btn-default">
 						<span class="glyphicons glyphicons-film" aria-hidden="true"></span>Delete this Movie
 					</button>
 				</a>
@@ -48,9 +44,19 @@
 	<div class="movie">
 		<div class="movie-item">Name:</div>
 			{{movie.name}}<br>
+		{% if movie.movie_poster != "" %}
 		<img src="{{movie.movie_poster}}" height="420" width="420"><br>
-		<div class="movie-item">Category: </div>{{movie.category}}<br>
-		<div class="movie-item">Description:</div>{{movie.description}}<br>
+		{% else %}
+		<br>
+		<br>
+		{% endif %}
+
+		<div class="movie-item">Category: </div>{{movie.category}}<br><br>
+		{% if movie.description != "" %}
+<div class="movie-item">Description:</div>{{movie.description}}<br>
+		{% else %}
+		{% endif %}
+
 	</div>
 
 	<!--  -->

@@ -5,10 +5,18 @@
 		</a>
 	</div>
 	<div class="col-md-6 text-right">
+		{%if 'username' in session %}
+		<a href="{{ url_for('gdisconnect') }}">
+			<button class="btn btn-default" >
+				Logout
+			</button>
+		</a>
+		{% else %}
 		<a href="{{ url_for('showLogin') }}">
 		<button class="btn btn-default" >
 			Login
 		</button>
 		</a>
+		{% endif %}
 	</div>
 </div>

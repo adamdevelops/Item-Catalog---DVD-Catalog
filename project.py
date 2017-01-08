@@ -23,6 +23,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+
 # Create anti-forgery state token
 @app.route('/login')
 def showLogin():
@@ -143,35 +144,51 @@ def gdisconnect():
     	del login_session['picture']
     	response = make_response(json.dumps('Successfully disconnected.'), 200)
     	response.headers['Content-Type'] = 'application/json'
+        flash('You have been successfully logged out.')
+        return redirect(url_for('catalogDashboard'))
     	return response
     else:
-
     	response = make_response(json.dumps('Failed to revoke token for given user.', 400))
     	response.headers['Content-Type'] = 'application/json'
     	return response
 
+#JSON Routes
+# Category JSON page which displays JSON for the movies in a particular category.
 @app.route('/movies/<string:category>/JSON')
 def categoryMenuJSON(category):
     MenuItems = session.query(Movie).filter_by(
         category=category).all()
-    return jsonify(Category=[i.serialize for i in items])
+    return jsonify(Category=[i.serialize for i in MenuItems])
 
+# Movie menu JSON page which displays JSON for a particular movie.
+@app.route('/movies/<string:category>/<int:movie_id>/JSON')
+def movieMenuJSON(category, movie_id):
+    MenuItems = session.query(Movie).filter_by(
+        id=movie_id).all()
+    return jsonify(Movie=[i.serialize for i in MenuItems])
 
-# ADD JSON ENDPOINT HERE
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
-def menuItemJSON(restaurant_id, menu_id):
-    menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
-    return jsonify(MenuItem=menuItem.serialize)
+# Dashboard menu JSON page which displays JSON for the movies on showcased on the dashboard.
+@app.route('/dashboard/JSON')
+def moviecatalogMenuJSON():
+    MenuItems = session.query(Movie).all()
+    return jsonify(Movie=[i.serialize for i in MenuItems])
 
+# App Routes
+# Dashboard where a list of recent movies added to the database is shown.
 @app.route('/')
 @app.route('/dashboard/')
 def catalogDashboard():
-    movies = session.query(Movie).all()
+    movies = session.query(Movie).limit(10).all()
     categories = session.query(Category).all()
     return render_template('dashboard.html', movies = movies, categories = categories)
 
+# Create a Movie page which allows the user to input
+# data into a form to create a database entry.
 @app.route('/movies/create', methods=['GET', 'POST'])
 def createNewMovies():
+    # Only logged in users can go to this page. Otherwise, send them to the login page.
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'POST':
         name = request.form['name']
         movie_poster = request.form['movie_poster']
@@ -185,9 +202,14 @@ def createNewMovies():
     else:
         return render_template('newMovie.html')
 
-
+# Edit a Movie page which allows the user to edit
+# an existing movie stored in the database. Using
+# a form that has each column field for the movie.
 @app.route('/movies/<string:category>/<int:movie_id>/edit', methods=['GET', 'POST'])
 def editMovies(category, movie_id):
+    # Only logged in users can go to this page. Otherwise, send them to the login page.
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'POST':
         editedMovie = session.query(Movie).filter_by(id=movie_id).one()
         editedMovie.name = request.form['name']
@@ -202,24 +224,33 @@ def editMovies(category, movie_id):
         editedMovie = session.query(Movie).filter_by(id=movie_id).one()
         return render_template('editMovie.html', movie = editedMovie)
 
-
+# Delete a Movie page which allows a user to
+# delete a movie from the database.
 @app.route('/movies/<string:category>/<int:movie_id>/delete', methods=['GET', 'POST'])
 def deleteMovies(category, movie_id):
+    # Only logged in users can go to this page. Otherwise, send them to the login page.
+    if 'username' not in login_session:
+        return redirect('/login')
     movieToDelete = session.query(Movie).filter_by(id=movie_id).one()
     if request.method == 'POST':
         session.delete(movieToDelete)
-        flash('%s Successfully Deleted' % movieToDelete.name)
+        flash('%s was Successfully Deleted' % movieToDelete.name)
         session.commit()
         return redirect(url_for('catalogDashboard'))
     else:
         return render_template('deleteMovie.html', movie = movieToDelete)
 
+# Movie Category page showcases the movies
+# in a particular movie genre category.
 @app.route('/movies/<string:category>')
 def showCategoryMovies(category):
     category = category
     movies = session.query(Movie).filter_by(category=category).all()
     return render_template('category_dashboard.html', movies = movies, category = category)
 
+# The Individual Movie page which displays all the
+# information stored on a movie such as it's name,
+# category genre, movie poster, and description.
 @app.route('/movies/<string:category>/<int:movie_id>')
 def showMoviePage(category, movie_id):
     movie = session.query(Movie).filter_by(id=movie_id).one()

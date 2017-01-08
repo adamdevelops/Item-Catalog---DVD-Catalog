@@ -19,8 +19,8 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-# Menu for UrbanBurger
-category1 = Category(category="Drama")
+# Database entries for new categories or movies.
+category1 = Category(category="Comedy")
 
 session.add(category1)
 session.commit()
