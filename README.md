@@ -37,7 +37,7 @@ Then navigate to localhost:5000 on your favorite browser.
 ## API Endpoints
 | Request | What you get | 
 | ------------- |:-------------:|
-| '/' or '/dashboard' | Get a list of recent movies stored in the catalog |
+| / or /dashboard | Get a list of recent movies stored in the catalog |
 | /movies/<string:category> | Get a list of movies with in a movie genre category |
 | /movies/<string:category>/<int:movie_id> | Get the information to a specific stored movie |
 | /movies/create | Create a new movie entry in the catalog |
